@@ -1,0 +1,23 @@
+- name: Disable switch interfaces
+  hosts: switches
+  gather_facts: false
+  tasks:
+    - name: Create and move ports to VLAN 99, then shutdown switch interfaces
+      cisco.ios.ios_config:
+        lines:
+          - vlan 99
+          - name Void
+          - interface range FastEthernet 0/21-24
+          - switchport mode access
+          - switchport access vlan 99
+          - shutdown
+
+    - name: Run show commands on switch interfaces to verify
+      register: output
+      cisco.ios.ios_command:
+        commands:
+          - show vlan brief
+
+    - name: Display command output
+      ansible.builtin.debug:
+        var: output.stdout_lines

@@ -1,0 +1,13 @@
+- name: Show all interfaces in brief format
+  hosts: [switches, routers]
+  gather_facts: false
+  tasks:
+    - name: Run show commands on all devices
+      register: output
+      cisco.ios.ios_command:
+        commands:
+          - show ip interface brief
+
+    - name: Display command output
+      ansible.builtin.debug:
+        var: output.stdout_lines
