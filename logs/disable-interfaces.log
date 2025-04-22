@@ -1,0 +1,28 @@
+
+PLAY [Disable switch interfaces] ***********************************************
+
+TASK [Create and move ports to VLAN 99, then shutdown switch interfaces] *******
+changed: [192.168.15.253]
+
+TASK [Run show commands on switch interfaces to verify] ************************
+ok: [192.168.15.253]
+
+TASK [Display command output] **************************************************
+ok: [192.168.15.253] => {
+    "output.stdout_lines": [
+        [
+            "VLAN Name                             Status    Ports",
+            "---- -------------------------------- --------- -------------------------------",
+            "1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4, Fa0/5, Fa0/6, Fa0/7, Fa0/8, Fa0/9, Fa0/10, Fa0/11, Fa0/12, Fa0/13, Fa0/14, Fa0/15, Fa0/16, Fa0/17, Fa0/18, Fa0/19, Fa0/20, Gi0/1, Gi0/2",
+            "99   Void                             active    Fa0/21, Fa0/22, Fa0/23, Fa0/24",
+            "1002 fddi-default                     act/unsup ",
+            "1003 token-ring-default               act/unsup ",
+            "1004 fddinet-default                  act/unsup ",
+            "1005 trnet-default                    act/unsup"
+        ]
+    ]
+}
+
+PLAY RECAP *********************************************************************
+192.168.15.253             : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
