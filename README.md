@@ -20,7 +20,7 @@ Tested with:
 ### Clone or download this repository
 
 ```sh
-git clone https://github.com/myned/example-ansible-cisco
+git clone https://github.com/myned/ansible-example
 ```
 
 ### Go to project directory
