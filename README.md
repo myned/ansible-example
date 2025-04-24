@@ -12,7 +12,8 @@ Tested with:
 ### Prerequisites
 
 - Git
-- Python 3
+- Python 3.10+
+- Internet access
 
 > [!NOTE]
 > The following instructions assume Ubuntu 22.04 LTS, optionally over [WSL](https://learn.microsoft.com/en-us/windows/wsl/)
@@ -23,19 +24,29 @@ Tested with:
 git clone https://github.com/myned/ansible-example
 ```
 
-### Go to project directory
+### Go to the project directory
 
 ```sh
 cd ansible-example
 ```
 
-### Create virtual environment
+### Install the Python venv package
+
+> [!NOTE]
+> The exact package varies depending on your distribution
+
+```
+sudo apt update
+sudo apt install python3-venv
+```
+
+### Create a [Python virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
 ```sh
 python3 -m venv .venv
 ```
 
-### Activate virtual environment
+### Activate the virtual environment
 
 ```sh
 source .venv/bin/activate
@@ -44,7 +55,7 @@ source .venv/bin/activate
 > [!TIP]
 > Shells other than bash may use the relevant `activate` scripts under `.venv/bin/`
 
-### Install dependencies
+### Install dependencies within the virtual environment
 
 ```sh
 pip install -r requirements.txt
@@ -55,8 +66,10 @@ pip install -r requirements.txt
 
 # Usage
 
-> [!NOTE]
+> [!TIP]
 > Example output is available in the `logs/` directory
+>
+> Read through each file, the comments contain additional context
 
 ### Edit inventory files as necessary
 
@@ -64,13 +77,13 @@ pip install -r requirements.txt
 nano inventory/all.yaml
 ```
 
-### Run playbook to show all interfaces
+### Run the playbook to show configuration
 
 ```sh
 ansible-playbook -i inventory/all.yaml playbooks/show-interfaces.yaml
 ```
 
-### Run playbook to modify configuration by disabling interfaces
+### Run the playbook to modify configuration
 
 ```sh
 ansible-playbook -i inventory/all.yaml playbooks/disable-interfaces.yaml
