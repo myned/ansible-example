@@ -1,4 +1,10 @@
-# Default variables that all sections inherit
+# Inventory files use an ini-like structure by default, but can also be written in YAML format
+# https://docs.ansible.com/ansible/latest/network/user_guide/network_best_practices_2.5.html#groups-and-variables-in-an-inventory-file
+
+#!! Instead of plaintext login credentials here, it is recommended to use the Ansible Vault
+# https://docs.ansible.com/ansible/latest/network/user_guide/network_best_practices_2.5.html#ansible-vault-for-password-encryption
+
+# [all:vars] contains default variables that all groups inherit
 [all:vars]
 ansible_connection=network_cli
 ansible_network_os=ios
@@ -8,9 +14,10 @@ ansible_become=yes
 ansible_become_method=enable
 ansible_become_password=class
 
-# Groups of devices that can have their own variables
+# [<group>] contains subgroups of devices that can have their own variables
+#?? <hostname> ansible_host=<ip address>
 [routers]
-192.168.15.254
+R1 ansible_host=192.168.15.254
 
 [switches]
-192.168.15.253
+S1 ansible_host=192.168.15.253

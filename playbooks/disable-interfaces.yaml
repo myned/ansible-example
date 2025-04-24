@@ -1,9 +1,16 @@
+# See `show-interfaces.yaml` for additional context
+
 - name: Disable switch interfaces
   hosts: switches
   gather_facts: false
   tasks:
     - name: Create and move ports to VLAN 99, then shutdown switch interfaces
+      # Cisco-specific module to modify configuration directly
+      # https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html
       cisco.ios.ios_config:
+        # It is recommended to use the exact output of `show running-config`
+        # instead of using command shortcuts for idempotency
+        # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html#desired-state-and-idempotency
         lines:
           - vlan 99
           - name Void
@@ -12,6 +19,7 @@
           - switchport access vlan 99
           - shutdown
 
+    # These are similar to the commands used in `show-interfaces.yaml`
     - name: Run show commands on switch interfaces to verify
       register: output
       cisco.ios.ios_command:

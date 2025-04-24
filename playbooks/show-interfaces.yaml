@@ -1,13 +1,32 @@
+# Playbook files contain the actions to be performed on specified devices
+# The examples here use the Cisco-specific plugin, but a platform-agnostic plugin is available
+# IOS commands can be executed as they would be in the CLI
+# https://docs.ansible.com/ansible/latest/collections/cisco/ios/index.html
+# https://docs.ansible.com/ansible/latest/network/user_guide/network_best_practices_2.5.html#example-2-simplifying-playbooks-with-platform-independent-modules
+
+# Name of the summary action to be performed shown in output
 - name: Show all interfaces in brief format
+  # List of host groups specified in the inventory file
   hosts: [switches, routers]
+  # Optionally run informational actions to populate variables
+  # https://docs.ansible.com/ansible/latest/network/user_guide/network_best_practices_2.5.html#example-1-collecting-facts-and-creating-backup-files-with-a-playbook
   gather_facts: false
+  # Dictionary of individual tasks to be performed
   tasks:
+    # Name of the individual task shown in output
     - name: Run show commands on all devices
+      # Assign a variable to store the output of the task
       register: output
+      # Cisco-specific module to run idempotent commands on devices, such as `show`
+      # https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_command_module.html
       cisco.ios.ios_command:
+        # List of commands to be executed
         commands:
           - show ip interface brief
 
     - name: Display command output
+      # Display the contents of the variable `output` to the terminal
+      # It is also possible to write to a log file
+      # https://docs.ansible.com/ansible/latest/reference_appendices/logging.html
       ansible.builtin.debug:
         var: output.stdout_lines
