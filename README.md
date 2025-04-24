@@ -56,7 +56,7 @@ pip install -r requirements.txt
 # Usage
 
 > [!NOTE]
-> Example output is available in the `log/` directory
+> Example output is available in the `logs/` directory
 
 ### Edit inventory files as necessary
 
