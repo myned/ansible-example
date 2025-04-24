@@ -26,7 +26,7 @@ git clone https://github.com/myned/ansible-example
 ### Go to project directory
 
 ```sh
-cd example-ansible-cisco
+cd ansible-example
 ```
 
 ### Create virtual environment
